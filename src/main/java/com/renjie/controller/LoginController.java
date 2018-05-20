@@ -40,4 +40,12 @@ public class LoginController {
         }
         return jsonObject.toJSONString();
     }
+
+    @RequestMapping(value = "/test")
+    public String test(){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("msg", "测试成功");
+        return jsonObject.toJSONString();
+    }
+
 }

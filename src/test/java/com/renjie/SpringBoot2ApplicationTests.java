@@ -2,6 +2,7 @@ package com.renjie;
 
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.ByteSource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,10 +23,21 @@ public class SpringBoot2ApplicationTests {
 
 		//YWlyZTFlNjVjZDkzZmZmZTEzM2JhYmUwMTYwYTc4ZjRiNjc=
 		//air0e9590f2a62731198afb4a062e896eaf
-		SimpleHash hash = new SimpleHash(algorithmName, password, salt1 + salt2, hashIterations);
-		String encodedPassword = hash.toHex();
+//		SimpleHash hash = new SimpleHash(algorithmName, password, salt1 + salt2, hashIterations);
+//		String encodedPassword = hash.toHex();
 		System.err.println(salt1+ salt2);
-		System.err.println(encodedPassword);
+//		System.err.println(encodedPassword);
+
+		for (int i = 0; i < 5; i++) {
+			SimpleHash hash = new SimpleHash(algorithmName, password, ByteSource.Util.bytes(salt1 + salt2), hashIterations);
+			String encodedPassword = hash.toHex();
+			System.err.println(encodedPassword);
+		}
+		for (int i = 0; i < 5; i++) {
+			SimpleHash hash = new SimpleHash(algorithmName, password, salt1 + salt2, hashIterations);
+			String encodedPassword = hash.toHex();
+			System.err.println(encodedPassword);
+		}
 	}
 	@Test
 	public void contextLoads2() {
