@@ -2,6 +2,7 @@ package com.renjie.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.renjie.entity.UserInfo;
+import com.renjie.response.AirResult;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -41,10 +42,27 @@ public class LoginController extends BaseController{
         return jsonObject.toJSONString();
     }
 
+    @RequestMapping(value = "/unauth")
+    public AirResult unauth(){
+        return AirResult.build(100,"未登陆");
+    }
+
+    @RequestMapping(value = "/unauthorized")
+    public AirResult unauthorized(){
+        return AirResult.build(110, "没有权限访问");
+    }
+
     @RequestMapping(value = "/test")
     public String test(){
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("msg", "测试成功");
+        return jsonObject.toJSONString();
+    }
+
+    @RequestMapping(value = "/test2")
+    public String test2(){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("msg", "测试成功2222");
         return jsonObject.toJSONString();
     }
 

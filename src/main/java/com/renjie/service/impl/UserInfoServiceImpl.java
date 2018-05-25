@@ -24,7 +24,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
 
         List<SysPermission> permissions = new ArrayList<SysPermission>();
         SysPermission sysPermission = new SysPermission();
-        sysPermission.setPermission("添加");
+        sysPermission.setPermission("user:edit");
         permissions.add(sysPermission);
         sysRole.setPermissions(permissions);
 

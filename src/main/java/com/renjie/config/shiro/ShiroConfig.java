@@ -45,9 +45,19 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/ajaxLogin", "anon");
         filterChainDefinitionMap.put("/login", "anon");
+
+        //filterChainDefinitionMap.put("/test2", "authc,roles[master]");
+        filterChainDefinitionMap.put("/test2", "authc,perms[user:edit]");
+
+
         filterChainDefinitionMap.put("/**", "authc");
 
+
+
+
         shiroFilterFactoryBean.setLoginUrl("/unauth");
+
+        shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
