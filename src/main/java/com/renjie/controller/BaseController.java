@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Created by ouyanggang on 2018/5/22.
  */
+@RestController
 public abstract class BaseController {
 
   @ExceptionHandler({UnauthenticatedException.class, AuthenticationException.class})

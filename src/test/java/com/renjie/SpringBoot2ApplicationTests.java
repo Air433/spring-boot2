@@ -1,10 +1,12 @@
 package com.renjie;
 
+import com.renjie.config.dataSource.DruidConfig;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -12,6 +14,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class SpringBoot2ApplicationTests {
 
+	@Autowired
+	private DruidConfig druidConfig;
 	@Test
 	public void contextLoads() {
 		String algorithmName = "md5";
@@ -62,11 +66,17 @@ public class SpringBoot2ApplicationTests {
 		//accountCredentials
 		//d2e087d82d833022b70adbe2b8f317f9
 	}
+
 	@Test
 	public void test(){
 		System.err.println(new SecureRandomNumberGenerator().nextBytes().toHex());
 		//0c84cb267fee19edcd5aca892aee7f52
 		String password=new SimpleHash("MD5","123","air",2).toHex();
 		System.err.println(password);
+	}
+	@Test
+	public void test1(){
+		String username = druidConfig.getUsername();
+		System.err.println(username);
 	}
 }
