@@ -55,9 +55,9 @@ public class ShiroConfig {
 
 
 
-        shiroFilterFactoryBean.setLoginUrl("/unauth");
+        //shiroFilterFactoryBean.setLoginUrl("/unauth");
 
-        shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized");
+        //shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;

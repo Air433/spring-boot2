@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by Air on 2018/5/13.
  */
+@Transactional
 @Service
 public class UserInfoServiceImpl implements IUserInfoService {
     public UserInfo findByUsername(String username) {
