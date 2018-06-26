@@ -65,7 +65,7 @@ public class MybatisPlusConfig {
   public SqlSessionFactory sqlSessionFactory(@Qualifier(value = "globalConfig")GlobalConfiguration globalConfig,
       @Qualifier(value = "dataSource")DruidDataSource dataSource) throws Exception {
     log.info("初始化SqlSessionFactory");
-    String mapperLocations = "com.renjie.entity.**.*.xml";
+    String mapperLocations = "com.renjie.dao.**.*.xml";
     String configLocation = "classpath:mybatis-sqlconfig.xml";
     String typeAliasesPackage = "com.renjie.entity.**";
     MybatisSqlSessionFactoryBean sqlSessionFactory = new MybatisSqlSessionFactoryBean();
@@ -91,7 +91,7 @@ public class MybatisPlusConfig {
   public MapperScannerConfigurer mapperScannerConfigurer() {
     log.info("初始化MapperScannerConfigurer");
     MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
-    String basePackage = "com.renjie.entity.mapper";
+    String basePackage = "com.renjie.dao.xml";
     mapperScannerConfigurer.setBasePackage(basePackage);
     return mapperScannerConfigurer;
   }

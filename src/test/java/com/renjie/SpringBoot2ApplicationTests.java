@@ -1,6 +1,7 @@
 package com.renjie;
 
 import com.renjie.config.dataSource.DruidConfig;
+import com.renjie.dao.CmsMenuMapper;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
@@ -16,6 +17,10 @@ public class SpringBoot2ApplicationTests {
 
 	@Autowired
 	private DruidConfig druidConfig;
+
+	@Autowired
+	private CmsMenuMapper cmsMenuMapper;
+
 	@Test
 	public void contextLoads() {
 		String algorithmName = "md5";
@@ -78,5 +83,6 @@ public class SpringBoot2ApplicationTests {
 	public void test1(){
 		String username = druidConfig.getUsername();
 		System.err.println(username);
+		cmsMenuMapper.selectById(1);
 	}
 }

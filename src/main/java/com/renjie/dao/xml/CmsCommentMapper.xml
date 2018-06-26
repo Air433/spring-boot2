@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.sbmp.mapper.CmsCommentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.renjie.entity.CmsComment">
+        <id column="comment_id" property="commentId" />
+        <result column="pid" property="pid" />
+        <result column="article_id" property="articleId" />
+        <result column="user_id" property="userId" />
+        <result column="content" property="content" />
+        <result column="status" property="status" />
+        <result column="ip" property="ip" />
+        <result column="agent" property="agent" />
+        <result column="system_id" property="systemId" />
+        <result column="ctime" property="ctime" />
+    </resultMap>
+
+</mapper>

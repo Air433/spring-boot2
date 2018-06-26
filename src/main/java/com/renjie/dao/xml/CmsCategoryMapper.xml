@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.sbmp.mapper.CmsCategoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.renjie.entity.CmsCategory">
+        <id column="category_id" property="categoryId" />
+        <result column="pid" property="pid" />
+        <result column="level" property="level" />
+        <result column="name" property="name" />
+        <result column="description" property="description" />
+        <result column="icon" property="icon" />
+        <result column="type" property="type" />
+        <result column="alias" property="alias" />
+        <result column="system_id" property="systemId" />
+        <result column="ctime" property="ctime" />
+        <result column="orders" property="orders" />
+    </resultMap>
+
+</mapper>
