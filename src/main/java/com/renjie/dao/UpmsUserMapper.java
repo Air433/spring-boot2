@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface UpmsUserMapper extends BaseMapper<UpmsUser> {
 
+  public UpmsUser selectByPrimaryId(Integer id);
 }
