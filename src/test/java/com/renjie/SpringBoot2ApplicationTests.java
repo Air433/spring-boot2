@@ -1,10 +1,12 @@
 package com.renjie;
 
 import com.renjie.config.dataSource.DruidConfig;
-import com.renjie.dao.CmsMenuMapper;
-import com.renjie.dao.UpmsUserMapper;
-import com.renjie.entity.CmsMenu;
-import com.renjie.entity.UpmsUser;
+import com.renjie.dao.SysUserMapper;
+
+import com.renjie.entity.SysUser;
+
+import java.util.HashMap;
+import java.util.Map;
 import javax.annotation.Resource;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -23,10 +25,8 @@ public class SpringBoot2ApplicationTests {
 	private DruidConfig druidConfig;
 
 	@Resource
-	private CmsMenuMapper cmsMenuMapper;
+	private SysUserMapper sysUserMapper;
 
-	@Resource
-	private UpmsUserMapper upmsUserMapper;
 
 	@Test
 	public void contextLoads() {
@@ -88,16 +88,9 @@ public class SpringBoot2ApplicationTests {
 	}
 	@Test
 	public void test1(){
-		String username = druidConfig.getUsername();
-		System.err.println(username);
-		CmsMenu cmsMenu = cmsMenuMapper.selectById(1);
-		System.err.println(cmsMenu);
+		SysUser sysUser = sysUserMapper.selectById(2);
+		System.err.println(sysUser);
 
-		UpmsUser upmsUser = upmsUserMapper.selectById(1);
 
-		System.err.println(upmsUser);
-
-		UpmsUser upmsUser1 = this.upmsUserMapper.selectByPrimaryId(1);
-		System.err.println(upmsUser1);
 	}
 }

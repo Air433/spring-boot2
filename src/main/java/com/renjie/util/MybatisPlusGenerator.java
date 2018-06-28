@@ -29,7 +29,7 @@ public class MybatisPlusGenerator {
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("root");
-        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/zheng?characterEncoding=utf8&useSSL=true");
+        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/love?characterEncoding=utf8&useSSL=true");
         mpg.setDataSource(dsc);
 
         // 策略配置
@@ -41,7 +41,7 @@ public class MybatisPlusGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setParent("com.example.sbmp");
+        pc.setParent("com.renjie");
         mpg.setPackageInfo(pc);
 
         mpg.execute();

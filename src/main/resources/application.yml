@@ -8,7 +8,7 @@ spring:
         timeout: 0
         password: 33
    datasource1:
-      url: jdbc:mysql://127.0.0.1:3306/zheng?characterEncoding=UTF-8&useUnicode=true&useSSL=false
+      url: jdbc:mysql://127.0.0.1:3306/love?characterEncoding=UTF-8&useUnicode=true&useSSL=false
       username: root
       password: root
       type: com.alibaba.druid.pool.DruidDataSource

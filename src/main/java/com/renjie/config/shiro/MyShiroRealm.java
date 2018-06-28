@@ -1,6 +1,6 @@
 package com.renjie.config.shiro;
 
-import com.renjie.entity.SysPermission;
+//import com.renjie.entity.SysPermission;
 import com.renjie.entity.SysRole;
 import com.renjie.entity.UserInfo;
 import com.renjie.service.IUserInfoService;
@@ -24,12 +24,12 @@ public class MyShiroRealm extends AuthorizingRealm{
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         UserInfo userInfo = (UserInfo)principals.getPrimaryPrincipal();
-        for (SysRole role : userInfo.getRoleList()) {
-            authorizationInfo.addRole(role.getRole());
-            for (SysPermission p : role.getPermissions()) {
-                authorizationInfo.addStringPermission(p.getPermission());
-            }
-        }
+//        for (SysRole role : userInfo.getRoleList()) {
+//            authorizationInfo.addRole(role.getRole());
+//            for (SysPermission p : role.getPermissions()) {
+//                authorizationInfo.addStringPermission(p.getPermission());
+//            }
+//        }
 
         return authorizationInfo;
     }
