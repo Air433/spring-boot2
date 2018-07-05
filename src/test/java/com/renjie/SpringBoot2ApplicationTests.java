@@ -1,13 +1,12 @@
 package com.renjie;
 
 import com.renjie.config.dataSource.DruidConfig;
-import com.renjie.dao.SysUserMapper;
 
-import com.renjie.entity.SysUser;
-
-import java.util.HashMap;
-import java.util.Map;
 import javax.annotation.Resource;
+
+import com.renjie.dao.UserMapper;
+import com.renjie.domain.bizs.UserBiz;
+import com.renjie.entity.User;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
@@ -25,7 +24,7 @@ public class SpringBoot2ApplicationTests {
 	private DruidConfig druidConfig;
 
 	@Resource
-	private SysUserMapper sysUserMapper;
+	private UserMapper userMapper;
 
 
 	@Test
@@ -88,9 +87,9 @@ public class SpringBoot2ApplicationTests {
 	}
 	@Test
 	public void test1(){
-		SysUser sysUser = sysUserMapper.selectById(2);
-		System.err.println(sysUser);
-
-
+		User user = userMapper.selectById(2);
+		System.err.println(user);
+		UserBiz userBiz = userMapper.selectUserBiz(2l);
+		System.err.println(userBiz);
 	}
 }

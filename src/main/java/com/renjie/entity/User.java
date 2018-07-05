@@ -13,10 +13,10 @@ import java.io.Serializable;
  * </p>
  *
  * @author oyg
- * @since 2018-06-28
+ * @since 2018-07-01
  */
 @TableName("sys_user")
-public class SysUser extends Model<SysUser> {
+public class User extends Model<User> {
 
     private static final long serialVersionUID = 1L;
 
@@ -33,8 +33,7 @@ public class SysUser extends Model<SysUser> {
     /**
      * 登录密码
      */
-    @TableField("login_pass")
-    private String loginPass;
+    private String password;
     /**
      * 昵称
      */
@@ -93,12 +92,12 @@ public class SysUser extends Model<SysUser> {
         this.loginAccount = loginAccount;
     }
 
-    public String getLoginPass() {
-        return loginPass;
+    public String getPassword() {
+        return password;
     }
 
-    public void setLoginPass(String loginPass) {
-        this.loginPass = loginPass;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getUserName() {
@@ -172,10 +171,10 @@ public class SysUser extends Model<SysUser> {
 
     @Override
     public String toString() {
-        return "SysUser{" +
+        return "User{" +
         "userId=" + userId +
         ", loginAccount=" + loginAccount +
-        ", loginPass=" + loginPass +
+        ", password=" + password +
         ", userName=" + userName +
         ", userHead=" + userHead +
         ", userPhone=" + userPhone +

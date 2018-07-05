@@ -11,10 +11,10 @@ import java.io.Serializable;
  * </p>
  *
  * @author oyg
- * @since 2018-06-28
+ * @since 2018-07-01
  */
 @TableName("sys_role_permission")
-public class SysRolePermission extends Model<SysRolePermission> {
+public class RolePermission extends Model<RolePermission> {
 
     private static final long serialVersionUID = 1L;
 
@@ -52,7 +52,7 @@ public class SysRolePermission extends Model<SysRolePermission> {
 
     @Override
     public String toString() {
-        return "SysRolePermission{" +
+        return "RolePermission{" +
         "roleId=" + roleId +
         ", permissions=" + permissions +
         "}";

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.renjie.dao.SysAuthorityMapper">
+<mapper namespace="com.renjie.dao.AuthorityMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.renjie.entity.SysAuthority">
+    <resultMap id="BaseResultMap" type="com.renjie.entity.Authority">
         <id column="id" property="id" />
         <result column="data_url" property="dataUrl" />
         <result column="menu_class" property="menuClass" />

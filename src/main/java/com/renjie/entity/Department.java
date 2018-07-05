@@ -13,10 +13,10 @@ import java.io.Serializable;
  * </p>
  *
  * @author oyg
- * @since 2018-06-28
+ * @since 2018-07-01
  */
 @TableName("sys_department")
-public class SysDepartment extends Model<SysDepartment> {
+public class Department extends Model<Department> {
 
     private static final long serialVersionUID = 1L;
 
@@ -106,7 +106,7 @@ public class SysDepartment extends Model<SysDepartment> {
 
     @Override
     public String toString() {
-        return "SysDepartment{" +
+        return "Department{" +
         "id=" + id +
         ", departmentKey=" + departmentKey +
         ", departmentValue=" + departmentValue +

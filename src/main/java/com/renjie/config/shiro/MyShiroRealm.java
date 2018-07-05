@@ -1,13 +1,11 @@
 package com.renjie.config.shiro;
 
 //import com.renjie.entity.SysPermission;
-import com.renjie.entity.SysRole;
 import com.renjie.entity.UserInfo;
 import com.renjie.service.IUserInfoService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;

@@ -13,10 +13,10 @@ import java.io.Serializable;
  * </p>
  *
  * @author oyg
- * @since 2018-06-28
+ * @since 2018-07-01
  */
 @TableName("sys_role_authority")
-public class SysRoleAuthority extends Model<SysRoleAuthority> {
+public class RoleAuthority extends Model<RoleAuthority> {
 
     private static final long serialVersionUID = 1L;
 
@@ -81,7 +81,7 @@ public class SysRoleAuthority extends Model<SysRoleAuthority> {
 
     @Override
     public String toString() {
-        return "SysRoleAuthority{" +
+        return "RoleAuthority{" +
         "id=" + id +
         ", menuCode=" + menuCode +
         ", roleKey=" + roleKey +

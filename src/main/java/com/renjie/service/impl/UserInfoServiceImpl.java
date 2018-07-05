@@ -1,7 +1,7 @@
 package com.renjie.service.impl;
 
 //import com.renjie.entity.SysPermission;
-import com.renjie.entity.SysRole;
+import com.renjie.entity.Role;
 import com.renjie.entity.UserInfo;
 import com.renjie.service.IUserInfoService;
 import org.springframework.stereotype.Service;
@@ -20,8 +20,8 @@ public class UserInfoServiceImpl implements IUserInfoService {
         UserInfo userInfo = new UserInfo();
         userInfo.setUsername("air");
         userInfo.setPassword("2093ff5efdd13a3156944657d8b4c131");
-        List<SysRole> roleList = new ArrayList<SysRole>();
-        SysRole sysRole  = new SysRole();
+        List<Role> roleList = new ArrayList<Role>();
+        Role role  = new Role();
 //        sysRole.setRole("admin");
 //
 //        List<SysPermission> permissions = new ArrayList<SysPermission>();
@@ -30,7 +30,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
 //        permissions.add(sysPermission);
 //        sysRole.setPermissions(permissions);
 
-        roleList.add(sysRole);
+        roleList.add(role);
         userInfo.setRoleList(roleList);
         return userInfo;
     }

@@ -1,6 +1,6 @@
 package com.renjie.dao;
 
-import com.renjie.entity.SysRoleAuthority;
+import com.renjie.entity.RoleAuthority;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * </p>
  *
  * @author oyg
- * @since 2018-06-28
+ * @since 2018-07-01
  */
-public interface SysRoleAuthorityMapper extends BaseMapper<SysRoleAuthority> {
+public interface RoleAuthorityMapper extends BaseMapper<RoleAuthority> {
 
 }

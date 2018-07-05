@@ -1,6 +1,6 @@
 package com.renjie.dao;
 
-import com.renjie.entity.SysDepartment;
+import com.renjie.entity.Department;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * </p>
  *
  * @author oyg
- * @since 2018-06-28
+ * @since 2018-07-01
  */
-public interface SysDepartmentMapper extends BaseMapper<SysDepartment> {
+public interface DepartmentMapper extends BaseMapper<Department> {
 
 }

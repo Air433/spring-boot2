@@ -7,7 +7,7 @@ import java.util.List;
  * Created by Air on 2018/5/13.
  */
 public class UserInfo  implements Serializable {
-    private List<SysRole> roleList;
+    private List<Role> roleList;
     private int state;
 
     private String username;
@@ -34,11 +34,11 @@ public class UserInfo  implements Serializable {
         this.state = state;
     }
 
-    public List<SysRole> getRoleList() {
+    public List<Role> getRoleList() {
         return roleList;
     }
 
-    public void setRoleList(List<SysRole> roleList) {
+    public void setRoleList(List<Role> roleList) {
         this.roleList = roleList;
     }
 

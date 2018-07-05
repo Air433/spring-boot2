@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.renjie.dao.SysDepartmentMapper">
+<mapper namespace="com.renjie.dao.DepartmentMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.renjie.entity.SysDepartment">
+    <resultMap id="BaseResultMap" type="com.renjie.entity.Department">
         <id column="id" property="id" />
         <result column="department_key" property="departmentKey" />
         <result column="department_value" property="departmentValue" />
