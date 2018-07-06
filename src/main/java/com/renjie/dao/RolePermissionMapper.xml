@@ -8,4 +8,8 @@
         <result column="permissions" property="permissions" />
     </resultMap>
 
+    <select id="findByRoleId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+
+        SELECT * FROM sys_role_permission WHERE role_id = #{id}
+    </select>
 </mapper>

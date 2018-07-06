@@ -2,6 +2,7 @@ package com.renjie.dao;
 
 import com.renjie.entity.RolePermission;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +14,6 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface RolePermissionMapper extends BaseMapper<RolePermission> {
 
+
+  List<RolePermission> findByRoleId(Long role_id);
 }
