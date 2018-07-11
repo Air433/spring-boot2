@@ -8,6 +8,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,6 +62,14 @@ public class LoginController extends BaseController{
 
     @RequestMapping(value = "/test2")
     public String test2(){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("msg", "测试成功2222");
+        return jsonObject.toJSONString();
+    }
+
+    @RequestMapping(value = "/test3")
+    @RequiresPermissions("")
+    public String test3(){
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("msg", "测试成功2222");
         return jsonObject.toJSONString();
