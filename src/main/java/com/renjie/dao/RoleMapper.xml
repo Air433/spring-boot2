@@ -20,7 +20,7 @@
         <result column="role_value" property="roleValue" />
         <result column="company_id" property="companyId" />
 
-        <collection property="authorityBizList" column="role_id" ofType="RolePermission" select="com.renjie.dao.RolePermissionMapper.findByRoleId"/>
+        <collection property="authorityBizList" column="role_key" ofType="Authority" select="com.renjie.dao.AuthorityMapper.selectByRoleId"/>
     </resultMap>
 
     <select id="selectByUserId" parameterType="java.lang.Long" resultMap="RoleBiz">

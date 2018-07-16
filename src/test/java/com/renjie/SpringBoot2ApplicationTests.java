@@ -4,9 +4,8 @@ import com.renjie.config.dataSource.DruidConfig;
 
 import javax.annotation.Resource;
 
-import com.renjie.dao.UserMapper;
-import com.renjie.domain.bizs.UserBiz;
-import com.renjie.entity.User;
+import com.renjie.modules.sys.dao.SysUserMapper;
+import com.renjie.modules.sys.service.ShiroService;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
@@ -16,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Set;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SpringBoot2ApplicationTests {
@@ -23,8 +24,14 @@ public class SpringBoot2ApplicationTests {
 	@Autowired
 	private DruidConfig druidConfig;
 
+//	@Resource
+//	private UserMapper userMapper;
+
 	@Resource
-	private UserMapper userMapper;
+    private SysUserMapper sysUserMapper;
+
+	@Autowired
+	private ShiroService shiroService;
 
 
 	@Test
@@ -87,9 +94,17 @@ public class SpringBoot2ApplicationTests {
 	}
 	@Test
 	public void test1(){
-		User user = userMapper.selectById(2);
-		System.err.println(user);
-		UserBiz userBiz = userMapper.selectUserBiz(2l);
-		System.err.println(userBiz);
+//		User user = userMapper.selectById(2);
+//		System.err.println(user);
+//		UserBiz userBiz = userMapper.selectUserBiz(2l);
+//		System.err.println(userBiz);
+	}
+	@Test
+    public void test2(){
+		Set<String> permissions = shiroService.getUserPermissions(1);
+		System.err.println(permissions);
+
+		Set<String> permissions1 = shiroService.getUserPermissions(2);
+		System.err.println(permissions1);
 	}
 }

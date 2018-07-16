@@ -1,7 +1,10 @@
 package com.renjie.dao;
 
+import com.renjie.domain.bizs.AuthorityBiz;
 import com.renjie.entity.Authority;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface AuthorityMapper extends BaseMapper<Authority> {
 
+    List<AuthorityBiz> selectByRoleId(String roleKey);
 }
