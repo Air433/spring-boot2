@@ -66,10 +66,10 @@ public class MybatisPlusConfig {
       @Qualifier(value = "dataSource")DruidDataSource dataSource) throws Exception {
     log.info("初始化SqlSessionFactory");
     //String mapperLocations = "com.renjie.dao.**.*.xml";
-    String mapperLocations = "classpath:mapper.**.*.xml";
-    String configLocation = "classpath:mybatis-sqlconfig.xml";
+    String mapperLocations = "classpath:/mapper/*/*.xml";
+    String configLocation = "classpath:/mybatis-sqlconfig.xml";
     //String typeAliasesPackage = "com.renjie.entity.**";
-    String typeAliasesPackage = "com.renjie.modules.**";
+    String typeAliasesPackage = "com.renjie.modules.*.entity.**";
     MybatisSqlSessionFactoryBean sqlSessionFactory = new MybatisSqlSessionFactoryBean();
     sqlSessionFactory.setDataSource(dataSource); //数据源
     sqlSessionFactory.setGlobalConfig(globalConfig); //全局配置
@@ -94,7 +94,7 @@ public class MybatisPlusConfig {
     log.info("初始化MapperScannerConfigurer");
     MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
     //String basePackage = "com.renjie.dao.**";
-    String basePackage = "com.renjie.modules.sys.dao.**";
+    String basePackage = "com.renjie.modules.*.dao.**";
     mapperScannerConfigurer.setBasePackage(basePackage);
     return mapperScannerConfigurer;
   }

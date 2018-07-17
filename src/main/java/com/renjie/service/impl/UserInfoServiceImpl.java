@@ -49,6 +49,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
         RoleBiz roleBiz = new RoleBiz();
         roleBiz.setRoleKey("admin");
         Authority authority = new Authority();
-        authority.setMenuCode();
+        //authority.setMenuCode();
+        return userBiz;
     }
 }
