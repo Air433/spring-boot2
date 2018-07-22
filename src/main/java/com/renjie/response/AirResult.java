@@ -2,7 +2,10 @@ package com.renjie.response;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.HttpStatus;
+
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ouyanggang on 2018/5/22.
@@ -143,5 +146,20 @@ public class AirResult {
     } catch (Exception e) {
       return null;
     }
+  }
+
+  public static AirResult error(String msg){
+    return AirResult.build(HttpStatus.INTERNAL_SERVER_ERROR.value(), msg);
+  }
+
+  public static AirResult success(Map<String, Object> data){
+    return AirResult.build(HttpStatus.OK.value(), "", data);
+  }
+
+  public static AirResult success(String msg){
+    return AirResult.build(HttpStatus.OK.value(), msg);
+  }
+  public static AirResult success(String msg, Object data){
+    return AirResult.build(HttpStatus.OK.value(), msg, data);
   }
 }

@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface SysUserTokenMapper extends BaseMapper<SysUserToken> {
 
+    SysUserToken queryByToken(String token);
 }

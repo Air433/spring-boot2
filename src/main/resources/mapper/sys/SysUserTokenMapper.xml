@@ -10,4 +10,7 @@
         <result column="update_time" property="updateTime" />
     </resultMap>
 
+    <select id="queryByToken" resultMap="BaseResultMap">
+        SELECT * FROM sys_user_token WHERE token = #{value}
+    </select>
 </mapper>

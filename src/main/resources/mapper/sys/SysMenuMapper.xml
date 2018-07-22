@@ -14,4 +14,7 @@
         <result column="order_num" property="orderNum" />
     </resultMap>
 
+    <select id="queryListParentId" resultMap="BaseResultMap">
+        SELECT * FROM sys_menu WHERE parent_id = #{parentId} ORDER BY order_num ASC
+    </select>
 </mapper>

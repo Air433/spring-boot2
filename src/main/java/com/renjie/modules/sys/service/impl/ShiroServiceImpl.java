@@ -3,6 +3,7 @@ package com.renjie.modules.sys.service.impl;
 import com.renjie.common.utils.Constant;
 import com.renjie.modules.sys.dao.SysMenuMapper;
 import com.renjie.modules.sys.dao.SysUserMapper;
+import com.renjie.modules.sys.dao.SysUserTokenMapper;
 import com.renjie.modules.sys.entity.SysMenu;
 import com.renjie.modules.sys.entity.SysUser;
 import com.renjie.modules.sys.entity.SysUserToken;
@@ -21,6 +22,8 @@ public class ShiroServiceImpl implements ShiroService {
     private SysMenuMapper sysMenuMapper;
     @Resource
     private SysUserMapper sysUserMapper;
+    @Resource
+    private SysUserTokenMapper sysUserTokenMapper;
 
     @Override
     public Set<String> getUserPermissions(long userId) {
@@ -50,11 +53,11 @@ public class ShiroServiceImpl implements ShiroService {
 
     @Override
     public SysUserToken queryByToken(String token) {
-        return null;
+        return sysUserTokenMapper.queryByToken(token);
     }
 
     @Override
     public SysUser queryUser(Long userId) {
-        return null;
+        return sysUserMapper.selectById(userId);
     }
 }

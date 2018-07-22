@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -27,6 +28,9 @@ public class SysMenu extends Model<SysMenu> {
      */
     @TableField("parent_id")
     private Long parentId;
+
+    @TableField(exist = false)
+    private String parentName;
     /**
      * 菜单名称
      */
@@ -53,6 +57,24 @@ public class SysMenu extends Model<SysMenu> {
     @TableField("order_num")
     private Integer orderNum;
 
+    @TableField(exist = false)
+    private List<?> list;
+
+    public List<?> getList() {
+        return list;
+    }
+
+    public void setList(List<?> list) {
+        this.list = list;
+    }
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
 
     public Long getMenuId() {
         return menuId;

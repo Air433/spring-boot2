@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.renjie.common.utils.HttpContextUtils;
 import com.renjie.response.AirResult;
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
 import org.apache.shiro.web.filter.authc.AuthenticationFilter;
@@ -15,6 +16,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @
@@ -22,22 +24,11 @@ import javax.servlet.http.HttpServletResponse;
 public class OAuth2Filter extends AuthenticatingFilter {
 
     @Override
-    protected AuthenticationToken createToken(String username, String password, ServletRequest request, ServletResponse response) {
-
-        String token = getReuestToken((HttpServletRequest) request);
-
-        if (StringUtils.isBlank(token)){
-            return null;
-        }
-        return new OAuth2Token(token);
-    }
-
-    @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         if (((HttpServletRequest)request).getMethod().equals(RequestMethod.OPTIONS.name())){
             return true;
         }
-        return super.isAccessAllowed(request, response, mappedValue);
+        return false;
     }
 
     @Override
@@ -59,8 +50,34 @@ public class OAuth2Filter extends AuthenticatingFilter {
     }
 
     @Override
-    protected AuthenticationToken createToken(ServletRequest servletRequest, ServletResponse servletResponse) throws Exception {
-        return null;
+    protected AuthenticationToken createToken(ServletRequest request, ServletResponse servletResponse) throws Exception {
+        String token = getReuestToken((HttpServletRequest) request);
+
+        if (StringUtils.isBlank(token)){
+            return null;
+        }
+        return new OAuth2Token(token);
+    }
+
+    @Override
+    protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e, ServletRequest request, ServletResponse response) {
+
+        HttpServletResponse httpRespones = (HttpServletResponse) response;
+        httpRespones.setContentType("application/json;charset=utf-8");
+        httpRespones.setHeader("Access-Control-Allow-Credentials", "true");
+        httpRespones.setHeader("Access-Control-Allow-Origin", HttpContextUtils.getOrigin());
+
+        Throwable throwable = e.getCause() == null ? e : e.getCause();
+        AirResult airResult = AirResult.build(HttpStatus.UNAUTHORIZED.value(), throwable.getMessage());
+
+        String toJson = new Gson().toJson(airResult);
+        try {
+            httpRespones.getWriter().print(toJson);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+
+        return false;
     }
 
     private String getReuestToken(HttpServletRequest httpServletRequest){

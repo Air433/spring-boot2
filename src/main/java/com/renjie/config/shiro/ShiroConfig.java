@@ -22,7 +22,7 @@ import java.util.Map;
 /**
  * Created by Air on 2018/5/12.
  */
-@Configuration
+//@Configuration
 public class ShiroConfig {
     @Value("${spring.redis.shiro.host}")
     private String host;

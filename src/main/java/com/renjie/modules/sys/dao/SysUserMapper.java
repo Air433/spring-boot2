@@ -16,4 +16,13 @@ import java.util.List;
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
     List<String> queryAllPerms(Long userId);
+
+    SysUser queryByUserName(String username);
+
+    /**
+     * 查询用户的所有菜单ID
+     * @param userId
+     * @return
+     */
+    List<Long> queryAllMenuId(Long userId);
 }
