@@ -2,9 +2,11 @@ package com.renjie.modules.sys.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.renjie.common.utils.Constant;
+import com.renjie.common.utils.MapUtils;
 import com.renjie.modules.sys.dao.SysMenuMapper;
 import com.renjie.modules.sys.entity.SysMenu;
 import com.renjie.modules.sys.service.SysMenuService;
+import com.renjie.modules.sys.service.SysRoleMenuService;
 import com.renjie.modules.sys.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,8 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Autowired
     private SysUserService sysUserService;
+    @Autowired
+    private SysRoleMenuService sysRoleMenuService;
 
     @Override
     public List<SysMenu> queryListParentId(Long parentId, List<Long> menuIdList) {
@@ -52,6 +56,19 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         //用户菜单列表
         List<Long> menuIdList = sysUserService.queryAllMenuId(userId);
         return getAllMenList(menuIdList);
+    }
+
+    @Override
+    public List<SysMenu> queryNotButtonList() {
+        return baseMapper.queryNotButtonList();
+    }
+
+    @Override
+    public boolean delete(Long menuId) {
+        //删除菜单
+        this.deleteById(menuId);
+        //删除关联表
+        return sysRoleMenuService.deleteByMap(new MapUtils().put("menu_id", menuId));
     }
 
     private List<SysMenu> getAllMenList(List<Long> menuIdList) {

@@ -58,7 +58,18 @@ public class SysMenu extends Model<SysMenu> {
     private Integer orderNum;
 
     @TableField(exist = false)
+    private Boolean open;
+
+    @TableField(exist = false)
     private List<?> list;
+
+    public Boolean getOpen() {
+        return open;
+    }
+
+    public void setOpen(Boolean open) {
+        this.open = open;
+    }
 
     public List<?> getList() {
         return list;

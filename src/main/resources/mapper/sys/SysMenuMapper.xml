@@ -17,4 +17,8 @@
     <select id="queryListParentId" resultMap="BaseResultMap">
         SELECT * FROM sys_menu WHERE parent_id = #{parentId} ORDER BY order_num ASC
     </select>
+
+    <select id="queryNotButtonList" resultMap="BaseResultMap">
+        SELECT * FROM sys_menu WHERE type != 2 ORDER BY order_num ASC
+    </select>
 </mapper>

@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 
 import com.renjie.modules.sys.dao.SysUserMapper;
 import com.renjie.modules.sys.service.ShiroService;
+import com.renjie.modules.sys.service.SysLogService;
+import com.renjie.modules.sys.service.SysUserService;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
@@ -32,6 +34,10 @@ public class SpringBoot2ApplicationTests {
 
 	@Autowired
 	private ShiroService shiroService;
+	@Autowired
+	private SysUserService sysUserService;
+	@Autowired
+	private SysLogService sysLogService;
 
 
 	@Test
@@ -106,5 +112,9 @@ public class SpringBoot2ApplicationTests {
 
 		Set<String> permissions1 = shiroService.getUserPermissions(2);
 		System.err.println(permissions1);
+	}
+	@Test
+	public void t3(){
+		sysLogService.testAspect();
 	}
 }

@@ -125,7 +125,7 @@ public class SysLog extends Model<SysLog> {
 
     @Override
     public String toString() {
-        return "SysLog{" +
+        return "SysLogAn{" +
         "id=" + id +
         ", username=" + username +
         ", operation=" + operation +

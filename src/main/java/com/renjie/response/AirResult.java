@@ -1,5 +1,6 @@
 package com.renjie.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import java.util.Map;
 /**
  * Created by ouyanggang on 2018/5/22.
  */
+@JsonIgnoreProperties(value = {"map"})
 public class AirResult {
   // 定义jackson对象
   private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -22,6 +24,8 @@ public class AirResult {
 
   // 响应中的数据
   private Object data;
+
+  private Map<String, Object> map;
 
   public static AirResult build(Integer status, String msg, Object data) {
     return new AirResult(status, msg, data);
@@ -156,10 +160,26 @@ public class AirResult {
     return AirResult.build(HttpStatus.OK.value(), "", data);
   }
 
+  public static AirResult success(){
+    return AirResult.build(HttpStatus.OK.value(), "");
+  }
+
+  public static AirResult success(boolean msg){
+    return AirResult.build(HttpStatus.OK.value(), String.valueOf(msg));
+  }
+
   public static AirResult success(String msg){
     return AirResult.build(HttpStatus.OK.value(), msg);
   }
   public static AirResult success(String msg, Object data){
     return AirResult.build(HttpStatus.OK.value(), msg, data);
+  }
+
+  public Map<String, Object> getMap() {
+    return map;
+  }
+
+  public void setMap(Map<String, Object> map) {
+    this.map = map;
   }
 }
