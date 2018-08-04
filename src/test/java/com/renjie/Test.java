@@ -5,6 +5,7 @@ import com.renjie.modules.sys.entity.SysUser;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * @Author oyg
@@ -47,8 +48,5 @@ public class Test {
 
     }
 
-    @org.junit.Test
-    public void t5() throws IllegalAccessException, InstantiationException {
-        SysMenu sysMenu = SysMenu.class.newInstance();
-    }
+
 }

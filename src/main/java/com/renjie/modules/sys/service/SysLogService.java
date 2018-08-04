@@ -9,5 +9,9 @@ import com.renjie.modules.sys.entity.SysLog;
  */
 public interface SysLogService extends IService<SysLog> {
 
-    void testAspect();
+    void m1();
+
+    void m2();
+
+    void m3();
 }

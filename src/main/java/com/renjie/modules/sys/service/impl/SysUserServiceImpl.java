@@ -35,9 +35,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public void testAspect(ProceedingJoinPoint point) throws Throwable {
-        System.err.println("-------------进入"+this.getClass().getName()+"---------------");
+        System.err.println("-------------进入a的方法里---------------");
         point.proceed();
 
+    }
+
+    @Override
+    public void testBspect(ProceedingJoinPoint point) throws Throwable {
+        System.err.println("-------------进入b的方法里---------------");
+        point.proceed();
     }
 
     @Override

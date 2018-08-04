@@ -24,6 +24,8 @@ public interface SysUserService extends IService<SysUser> {
 
     void testAspect(ProceedingJoinPoint point) throws Throwable;
 
+    void testBspect(ProceedingJoinPoint point) throws Throwable;
+
 
     PageUtils queryPage(Map<String, Object> params);
 }

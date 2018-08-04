@@ -2,6 +2,7 @@ package com.renjie.common.aspect;
 
 import com.google.gson.Gson;
 import com.renjie.common.annotation.SysLogAn;
+import com.renjie.common.annotation.TestAspect;
 import com.renjie.common.utils.HttpContextUtils;
 import com.renjie.common.utils.IPUtils;
 import com.renjie.modules.sys.entity.SysLog;
@@ -93,8 +94,16 @@ public class SysLogAspect {
 
     @Around("testAspect()")
     public Object test(ProceedingJoinPoint point) throws Throwable {
-        System.err.println("-------------进入"+this.getClass().getName()+"-------------------");
-        sysUserService.testAspect(point);
+        MethodSignature signature = (MethodSignature)point.getSignature();
+        Method method = signature.getMethod();
+        //System.err.println("-------------进入切面"+this.getClass().getName()+"-------------------");
+        TestAspect aspect = method.getAnnotation(TestAspect.class);
+        if (aspect.value().equals("a")){
+            sysUserService.testAspect(point);
+        }
+        if (aspect.value().equals("b")){
+            sysUserService.testBspect(point);
+        }
 
         return null;
     }

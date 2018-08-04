@@ -14,9 +14,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> implements SysLogService {
 
-    @TestAspect
+    @TestAspect("a")
     @Override
-    public void testAspect() {
-        System.err.println("------------"+this.getClass().getName()+"---------");
+    public void m1() {
+        System.err.println("------------我是m1方法，我a切面后执行---------");
+    }
+
+    @TestAspect("b")
+    @Override
+    public void m2() {
+        System.err.println("------------我是m2方法，我b切面后执行---------");
+    }
+
+    @Override
+    public void m3() {
+        System.err.println("------------我是m3方法，无需要切面---------");
     }
 }
