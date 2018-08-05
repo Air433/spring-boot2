@@ -1,9 +1,11 @@
 package com.renjie;
 
+import com.renjie.common.validator.Assert;
 import com.renjie.modules.sys.entity.SysMenu;
 import com.renjie.modules.sys.entity.SysUser;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -48,5 +50,9 @@ public class Test {
 
     }
 
-
+    @org.junit.Test
+    public void t5(){
+        List list = new ArrayList();
+        Assert.isBlank(list, "a");
+    }
 }

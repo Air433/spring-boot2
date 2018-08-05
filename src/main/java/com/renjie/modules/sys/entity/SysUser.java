@@ -6,7 +6,13 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.renjie.common.validator.group.AddGroup;
+import com.renjie.common.validator.group.UpdateGroup;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -26,10 +32,12 @@ public class SysUser extends Model<SysUser> {
     /**
      * 用户名
      */
+    @NotBlank(message = "用户名不能为空", groups = {AddGroup.class, UpdateGroup.class})
     private String username;
     /**
      * 密码
      */
+    @NotBlank(message = "密码不能为空", groups = AddGroup.class)
     private String password;
     /**
      * 盐
@@ -38,6 +46,8 @@ public class SysUser extends Model<SysUser> {
     /**
      * 邮箱
      */
+    @NotBlank(message = "邮箱不能为空", groups = {AddGroup.class, UpdateGroup.class})
+    @Email(message = "邮箱格式不正确", groups = {AddGroup.class, UpdateGroup.class})
     private String email;
     /**
      * 手机号
@@ -58,6 +68,19 @@ public class SysUser extends Model<SysUser> {
     @TableField("create_time")
     private Date createTime;
 
+    /**
+     * 角色ID列表
+     */
+    @TableField(exist=false)
+    private List<Long> roleIdList;
+
+    public List<Long> getRoleIdList() {
+        return roleIdList;
+    }
+
+    public void setRoleIdList(List<Long> roleIdList) {
+        this.roleIdList = roleIdList;
+    }
 
     public Long getUserId() {
         return userId;

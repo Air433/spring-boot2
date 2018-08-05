@@ -1,5 +1,8 @@
 package com.renjie;
 
+import com.renjie.modules.sys.entity.SysMenu;
+import com.renjie.modules.sys.entity.SysRole;
+import com.renjie.modules.sys.entity.SysUser;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -187,4 +190,52 @@ public class ThreadTest {
             return taskNum + "任务返回运行结果,当前任务时间【" + time + "毫秒】";
         }
     }
+
+    @Test
+    public void t2(){
+
+        SysUser sysUser= new SysUser();
+        SysRole sysRole = new SysRole();
+        Object coc = coc(sysRole, sysUser);
+
+        System.err.println(coc);
+    }
+
+    private <T, K> T coc(T t, K c){
+
+        return (T)c;
+    }
+
+    @Test
+    public void t3(){
+        SysUser sysUser = new SysUser();
+        sysUser.setUsername("苏杉杉");
+        SysRole sysRole = new SysRole();
+        sysRole.setRoleName("管理者");
+
+        List<SysMenu> sysMenus = new ArrayList<>();
+
+        TestResponse<SysMenu, SysUser, SysRole> testResponse = add(sysMenus, sysUser, sysRole);
+
+        List<SysMenu> menuList = testResponse.gettList();
+
+        SysUser k = testResponse.getK();
+
+        SysRole m = testResponse.getM();
+
+        TestResponse<SysMenu, Object, SysRole> add = add(sysMenus, null, sysRole);
+
+    }
+
+    private <T,K,M> TestResponse<T,K,M> add(List<T> ts, K k, M m){
+
+        TestResponse testResponse = new TestResponse();
+
+        testResponse.settList(ts);
+        testResponse.setK(k);
+        testResponse.setM(m);
+        return testResponse;
+    }
+
+
 }

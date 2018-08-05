@@ -28,4 +28,8 @@ public interface SysUserService extends IService<SysUser> {
 
 
     PageUtils queryPage(Map<String, Object> params);
+
+    boolean updatePassword(Long userId, String password, String newPassword);
+
+    void update(SysUser user);
 }

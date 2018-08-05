@@ -9,4 +9,7 @@
         <result column="role_id" property="roleId" />
     </resultMap>
 
+    <select id="queryRoleIdList" resultType="long">
+        SELECT role_id FROM sys_user_role WHERE user_id = #{value}
+    </select>
 </mapper>
