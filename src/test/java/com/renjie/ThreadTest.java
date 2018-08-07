@@ -152,19 +152,34 @@ public class ThreadTest {
         // 创建多个有返回值的任务
         List<Future> list = new ArrayList<Future>();
         for (int i = 0; i < taskSize; i++) {
-            Callable c = new MyCallable(i + " ");
+            Callable<String> c = new MyCallable(i + " ");
             // 执行任务并获取Future对象
-            Future f = pool.submit(c);
-            // System.out.println(">>>" + f.get().toString());
+//            try {
+
+            Future<String> f = pool.submit(c);
             list.add(f);
+//            }catch (Exception e){
+//                System.err.println("进入 pool.submit(c)异常");
+//                e.printStackTrace();
+//            }
+
+            // System.out.println(">>>" + f.get().toString());
+
         }
         // 关闭线程池
         pool.shutdown();
 
+        List<String> result = new ArrayList<>();
         // 获取所有并发任务的运行结果
-        for (Future f : list) {
+        for (Future<String> f : list) {
             // 从Future对象上获取任务的返回值，并输出到控制台
-            System.out.println(">>>" + f.get().toString());
+            try {
+                System.out.println(">>>" + f.get().toString());
+                result.add(f.get());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
         }
 
         Date date2 = new Date();
@@ -173,21 +188,24 @@ public class ThreadTest {
 
     }
 
-    class MyCallable implements Callable<Object> {
+    class MyCallable<T> implements Callable {
         private String taskNum;
 
         MyCallable(String taskNum) {
             this.taskNum = taskNum;
         }
-
-        public Object call() throws Exception {
+        @Override
+        public T call() throws Exception {
             System.out.println(">>>" + taskNum + "任务启动");
             Date dateTmp1 = new Date();
+            if (taskNum.equals("3 ")){
+                throw new Exception();
+            }
             Thread.sleep(10000);
             Date dateTmp2 = new Date();
             long time = dateTmp2.getTime() - dateTmp1.getTime();
             System.out.println(">>>" + taskNum + "任务终止");
-            return taskNum + "任务返回运行结果,当前任务时间【" + time + "毫秒】";
+            return (T)(taskNum + "任务返回运行结果,当前任务时间【" + time + "毫秒】");
         }
     }
 
@@ -202,7 +220,6 @@ public class ThreadTest {
     }
 
     private <T, K> T coc(T t, K c){
-
         return (T)c;
     }
 

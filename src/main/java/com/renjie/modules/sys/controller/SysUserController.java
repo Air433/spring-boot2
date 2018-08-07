@@ -91,5 +91,6 @@ public class SysUserController extends AbstractController{
 
         sysUser.setCreateUserId(getUserId());
         sysUserService.update(sysUser);
+        return null;
     }
 }
