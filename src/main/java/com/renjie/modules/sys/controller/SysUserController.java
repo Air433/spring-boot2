@@ -11,11 +11,13 @@ import com.renjie.modules.sys.form.PasswordForm;
 import com.renjie.modules.sys.service.SysUserRoleService;
 import com.renjie.modules.sys.service.SysUserService;
 import com.renjie.response.AirResult;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -91,6 +93,28 @@ public class SysUserController extends AbstractController{
 
         sysUser.setCreateUserId(getUserId());
         sysUserService.update(sysUser);
-        return null;
+        return AirResult.success();
+    }
+
+    /**
+     * 删除用户
+     * @param userIds
+     * @return
+     */
+    @SysLogAn("删除用户")
+    @PostMapping("/delete")
+    @RequiresPermissions("sys:user:delete")
+    public AirResult delete(@RequestParam Long[] userIds){
+        if (ArrayUtils.contains(userIds, 1L)){
+            return AirResult.error("系统管理员不能删除");
+        }
+
+        if (ArrayUtils.contains(userIds, getUserId())){
+            return AirResult.error("当前用户不能删除");
+        }
+
+        sysUserService.deleteBatchIds(Arrays.asList(userIds));
+
+        return AirResult.success();
     }
 }

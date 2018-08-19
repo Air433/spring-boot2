@@ -103,10 +103,30 @@ public class TeCst {
         }
     }
 
+    @Test
+    public void t8(){
+        int[] ts = {8,5,75,6,97,7,12,3,1};
+
+        for (int i = 0; i < ts.length; i++) {
+            System.err.print(ts[i]+ ",");
+        }
+
+        System.err.println();
+        heapSort(ts);
+        for (int i = 0; i < ts.length; i++) {
+            System.err.print(ts[i]+ ",");
+        }
+    }
+
     private static void heapSort(int[] table){
         int n = table.length;
         for (int j = n/2-1; j >= 0; j--) {
             sift(table, j, n-1);
+        }
+
+        System.err.println();
+        for (int i = 0; i < table.length; i++) {
+            System.out.print(table[i]+ ",");
         }
 
         for (int j = n-1; j > 0; j--) {
