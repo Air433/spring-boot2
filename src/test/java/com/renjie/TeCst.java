@@ -48,7 +48,7 @@ public class TeCst {
     @org.junit.Test
     public void t3() {
         SysUser userUser = new SysUser();
-        userUser.setUsername("abc");
+        userUser.setUsername("abcbbn");
         Consumer<SysUser> consumer = x -> x.setUsername("苏杉杉");
         consumer.accept(userUser);
         System.err.println(userUser.getUsername());
@@ -109,6 +109,10 @@ public class TeCst {
             sift(table, j, n-1);
         }
 
+        System.err.println();
+        for (int i = 0; i < table.length; i++) {
+            System.err.print(table[i]+ ",");
+        }
         for (int j = n-1; j > 0; j--) {
             int temp = table[0];
             table[0] = table[j];
