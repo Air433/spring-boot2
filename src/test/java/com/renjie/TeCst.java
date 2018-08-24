@@ -48,7 +48,7 @@ public class TeCst {
     @org.junit.Test
     public void t3() {
         SysUser userUser = new SysUser();
-        userUser.setUsername("abcbbncc");
+        userUser.setUsername("abcbbnccbvvb");
         Consumer<SysUser> consumer = x -> x.setUsername("苏杉杉");
         consumer.accept(userUser);
         System.err.println(userUser.getUsername());
