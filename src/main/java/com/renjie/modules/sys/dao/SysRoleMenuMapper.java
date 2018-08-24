@@ -3,6 +3,8 @@ package com.renjie.modules.sys.dao;
 import com.renjie.modules.sys.entity.SysRoleMenu;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
  * <p>
  * 角色与菜单对应关系 Mapper 接口
@@ -13,4 +15,12 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface SysRoleMenuMapper extends BaseMapper<SysRoleMenu> {
 
+    /**
+     * 根据角色ID，获取菜单ID列表
+     * @param roleId
+     * @return
+     */
+    List<Long> queryMenuIdList(Long roleId);
+
+    int deleteBatch(Long[] roleIds);
 }
