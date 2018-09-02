@@ -1,6 +1,11 @@
 package com.renjie.modules.sys.controller;
 
+import com.renjie.common.annotation.SysLogAn;
+import com.renjie.common.annotation.SysLogNotUser;
+import com.renjie.common.validator.ValidatorUtils;
+import com.renjie.common.validator.group.AddGroup;
 import com.renjie.modules.sys.entity.SysUser;
+import com.renjie.modules.sys.form.RegiserUserReq;
 import com.renjie.modules.sys.request.SysLoginRequest;
 import com.renjie.modules.sys.service.SysUserService;
 import com.renjie.modules.sys.service.SysUserTokenService;
@@ -52,5 +57,16 @@ public class SysLoginController extends AbstractController{
     public AirResult logout(){
         sysUserTokenService.logout(getUserId());
         return AirResult.success("退出成功");
+    }
+
+
+    @SysLogNotUser("注册用户")
+    @PostMapping("/sys/regier")
+    public AirResult regiser(@RequestBody RegiserUserReq userReq){
+        ValidatorUtils.validateEntity(userReq);
+
+        sysUserService.save(userReq);
+
+        return AirResult.success();
     }
 }

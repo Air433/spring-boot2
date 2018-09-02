@@ -3,6 +3,7 @@ package com.renjie.modules.sys.service;
 import com.baomidou.mybatisplus.service.IService;
 import com.renjie.common.utils.PageUtils;
 import com.renjie.modules.sys.entity.SysUser;
+import com.renjie.modules.sys.form.RegiserUserReq;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 import java.util.List;
@@ -32,4 +33,8 @@ public interface SysUserService extends IService<SysUser> {
     boolean updatePassword(Long userId, String password, String newPassword);
 
     void update(SysUser user);
+
+    void save(SysUser sysUser);
+
+    void save(RegiserUserReq userReq);
 }

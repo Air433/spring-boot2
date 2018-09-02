@@ -2,6 +2,7 @@ package com.renjie.common.aspect;
 
 import com.google.gson.Gson;
 import com.renjie.common.annotation.SysLogAn;
+import com.renjie.common.annotation.SysLogNotUser;
 import com.renjie.common.annotation.TestAspect;
 import com.renjie.common.utils.HttpContextUtils;
 import com.renjie.common.utils.IPUtils;
@@ -42,6 +43,59 @@ public class SysLogAspect {
     @Pointcut("@annotation(com.renjie.common.annotation.SysLogAn)")
     public void logPointCut(){
 
+    }
+
+    @Pointcut("@annotation(com.renjie.common.annotation.SysLogNotUser)")
+    public void logPointCutNotUser(){
+
+    }
+
+    @Around("logPointCutNotUser()")
+    public Object aroundNotUser(ProceedingJoinPoint point) throws Throwable {
+        long beginTime = System.currentTimeMillis();
+
+        Object result = point.proceed();
+
+        long time = System.currentTimeMillis() - beginTime;
+
+        saveSysLogNotUser(point, time);
+        return result;
+    }
+
+    private void saveSysLogNotUser(ProceedingJoinPoint point, long time) {
+        MethodSignature signature = (MethodSignature)point.getSignature();
+        Method method = signature.getMethod();
+
+        SysLog sysLog = new SysLog();
+        SysLogNotUser sysLogAn = method.getAnnotation(SysLogNotUser.class);
+        if (sysLogAn != null){
+            //注解上的描述
+            sysLog.setOperation(sysLogAn.value());
+        }
+
+        String className = point.getTarget().getClass().getName();
+        String methodName = signature.getName();
+        sysLog.setMethod(className + "." + methodName + "()");
+
+        Object[] args = point.getArgs();
+
+        try {
+            String params = new Gson().toJson(args);
+            sysLog.setParams(params);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
+        sysLog.setIp(IPUtils.getIpAddr(request));
+
+        //String username = ((SysUser) SecurityUtils.getSubject().getPrincipal()).getUsername();
+        //sysLog.setUsername(username);
+
+        sysLog.setTime(time);
+        sysLog.setCreateDate(new Date());
+
+        sysLogService.insert(sysLog);
     }
 
     @Around("logPointCut()")

@@ -1,9 +1,13 @@
 package com.renjie.modules.sys.controller;
 
 import com.renjie.modules.sys.entity.SysUser;
+import com.renjie.response.AirResult;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Author oyg
@@ -19,5 +23,11 @@ public abstract class AbstractController {
 
     protected Long getUserId(){
         return getUser().getUserId();
+    }
+
+    @ExceptionHandler
+    public AirResult exp(HttpServletRequest request, Exception ex){
+
+        return AirResult.error(ex.getMessage());
     }
 }

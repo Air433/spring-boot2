@@ -1,15 +1,24 @@
 package com.renjie.modules.sys.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.renjie.common.exception.RRException;
 import com.renjie.common.utils.Constant;
+import com.renjie.common.utils.MapUtils;
 import com.renjie.common.utils.PageUtils;
 import com.renjie.common.utils.Query;
+import com.renjie.dao.RoleMapper;
+import com.renjie.entity.Role;
+import com.renjie.modules.sys.dao.SysRoleMapper;
 import com.renjie.modules.sys.dao.SysUserMapper;
 import com.renjie.modules.sys.entity.SysUser;
+import com.renjie.modules.sys.form.RegiserUserReq;
 import com.renjie.modules.sys.service.SysLogService;
+import com.renjie.modules.sys.service.SysUserRoleService;
 import com.renjie.modules.sys.service.SysUserService;
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -17,6 +26,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +41,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Autowired
     private SysLogService sysLogService;
+    @Resource
+    private SysRoleMapper roleMapper;
+    @Autowired
+    private SysUserRoleService sysUserRoleService;
 
     @Override
     public SysUser queryByUserName(String username) {
@@ -88,6 +104,46 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
         //检查角色是否越权
 
+    }
+
+    @Transactional
+    @Override
+    public void save(SysUser user) {
+        user.setCreateTime(new Date());
+
+        String salt = RandomStringUtils.randomAlphabetic(20);
+        user.setPassword(new Sha256Hash(user.getPassword(), salt).toHex());
+        user.setSalt(salt);
+
+        checkRole(user);
+
+
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void save(RegiserUserReq userReq) {
+
+        String username = userReq.getUsername();
+
+        List list = this.selectByMap(new MapUtils().put("username", username));
+
+        if (list!=null && list.size() >0){
+            throw new RRException("用户名已存在");
+        }
+
+        SysUser sysUser = new SysUser();
+        sysUser.setUsername(username);
+        String salt = RandomStringUtils.randomAlphabetic(20);
+        sysUser.setPassword(new Sha256Hash(userReq.getPassword(), salt).toHex());
+        sysUser.setSalt(salt);
+
+        List<Long> roleId = new ArrayList<>();
+        roleId.add(2l);
+        sysUser.setRoleIdList(roleId);
+        this.insert(sysUser);
+
+        sysUserRoleService.saveOrUpdate(sysUser.getUserId(), sysUser.getRoleIdList());
     }
 
     private void checkRole(SysUser user){
