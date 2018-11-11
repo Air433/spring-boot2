@@ -129,10 +129,7 @@ public class SpringBoot2ApplicationTests {
 		System.err.println(permissions1);
 	}
 	@Test
-	public void t3() throws NoSuchMethodException {
-		sysLogService.m1();
-		sysLogService.m2();
-		sysLogService.m3();
+	public void t3() throws Exception { sysLogService.m5();
 
 
 	}

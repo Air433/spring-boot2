@@ -3,11 +3,13 @@ package com.renjie.config.shiro;
 import com.renjie.modules.sys.oauth2.OAuth2Filter;
 import com.renjie.modules.sys.oauth2.OAuth2Realm;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
@@ -25,11 +27,19 @@ import java.util.Map;
 public class ShiroOAuthConfig {
 
     @Bean("sessionManager")
-    public SessionManager sessionManager(){
+    public SessionManager sessionManager(SimpleCookie simpleCookie){
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         sessionManager.setSessionValidationSchedulerEnabled(true);
         sessionManager.setSessionIdCookieEnabled(true);
+        sessionManager.setSessionIdCookie(simpleCookie);
         return sessionManager;
+    }
+
+    @Bean
+    public SimpleCookie simpleCookie(){
+        SimpleCookie simpleCookie = new SimpleCookie("shiro.session");
+        simpleCookie.setPath("/");
+        return simpleCookie;
     }
 
     @Bean("securityManager")
@@ -55,6 +65,7 @@ public class ShiroOAuthConfig {
         filterMap.put("/druid/**", "anon");
         filterMap.put("/app/**", "anon");
         filterMap.put("/sys/login", "anon");
+        filterMap.put("/test-redis", "anon");
         filterMap.put("/sys/regier", "anon");
         filterMap.put("/swagger/**", "anon");
         filterMap.put("/v2/api-docs", "anon");

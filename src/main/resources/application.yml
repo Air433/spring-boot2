@@ -8,7 +8,7 @@ spring:
         timeout: 0
         password: 33
    datasource1:
-      url: jdbc:mysql://127.0.0.1:3306/my_db?characterEncoding=UTF-8&useUnicode=true&useSSL=false
+      url: jdbc:mysql://paascloud-db-mysql:3306/my_db?characterEncoding=UTF-8&useUnicode=true&useSSL=false
       username: root
       password: root
       type: com.alibaba.druid.pool.DruidDataSource
@@ -30,6 +30,12 @@ spring:
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
       useGlobalDataSourceStat: true
 
+   rabbitmq:
+      host: 192.168.13.130
+      port: 5672
+      username: admin
+      password: admin
+
 # ====================MybatisPlus====================
 mybatisPlus:
   globalConfig:
@@ -46,3 +52,11 @@ mybatisPlus:
     #逻辑删除配置
     logicDeleteValue: 0
     logicNotDeleteValue: 1
+
+redisPool:
+  hort: 127.0.0.1
+  port: 6379
+  timeout: 5000
+  maxTotal: 20
+  maxIdle: 10
+  minIdle: 5

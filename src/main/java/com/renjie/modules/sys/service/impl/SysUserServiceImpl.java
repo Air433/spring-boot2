@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.renjie.common.annotation.RedisLock;
 import com.renjie.common.exception.RRException;
 import com.renjie.common.utils.Constant;
 import com.renjie.common.utils.MapUtils;
@@ -120,7 +121,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     }
 
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class, timeout = 5000)
     @Override
     public void save(RegiserUserReq userReq) {
 
@@ -146,6 +147,25 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         sysUserRoleService.saveOrUpdate(sysUser.getUserId(), sysUser.getRoleIdList());
     }
 
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    @RedisLock(lockName = "SysUserServiceImpl.testRedis",expire = 15000)
+    public void testRedis() throws Exception {
+        //Thread.sleep(10000);
+
+        SysUser sysUser = new SysUser();
+        sysUser.setUsername("苏杉杉33333");
+        sysUser.setPassword("3433443");
+        baseMapper.insert(sysUser);
+
+        if (1==1){
+            throw new Exception("异常。。。。。");
+        }
+        //Thread.sleep(20000);
+        System.err.println("-------------------超时------------------");
+    }
+
     private void checkRole(SysUser user){
         if (user.getRoleIdList() == null || user.getRoleIdList().size() == 0){
             return;
@@ -156,4 +176,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
 
     }
+
+
 }

@@ -1,5 +1,6 @@
 package com.renjie;
 
+import com.renjie.entity.User;
 import com.renjie.modules.sys.entity.SysMenu;
 import com.renjie.modules.sys.entity.SysRole;
 import com.renjie.modules.sys.entity.SysUser;
@@ -9,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.*;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Function;
 
 /**
@@ -16,6 +19,28 @@ import java.util.function.Function;
  * @Date 2018/8/4/09:23
  */
 public class ThreadTest {
+
+    public static final ThreadLocal threadLocal = new ThreadLocal(){
+        @Override
+        public Object initialValue(){
+            return new User();
+        };
+    };
+
+    public static final ThreadLocal threadLocal2 = new ThreadLocal();
+
+    public static final ThreadLocal threadLocal3 = ThreadLocal.withInitial(()->{
+        return new User();
+    });
+
+    Thread thread = new Thread(){
+        @Override
+        public void run(){
+            System.err.println(1);
+        }
+    };
+
+
 
     @org.junit.Test
     public void t99() throws ExecutionException, InterruptedException {
@@ -254,5 +279,113 @@ public class ThreadTest {
         return testResponse;
     }
 
+    private Lock lock = new ReentrantLock();
 
+    int y = 0;
+    int p = 0;
+    @Test
+    public void testLock() throws InterruptedException {
+        new Thread(()->{
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            lock.lock();
+//            try{
+            synchronized (lock){
+
+                int k = 0;
+                while (k<1000){
+                    y +=1;
+                    p +=1;
+                    System.err.println(Thread.currentThread()+"----"+y+"+"+p+"="+(y+p)+"----");
+                    k++;
+                }
+            }
+//            }finally {
+//                lock.unlock();
+//            }
+
+
+        }).start();
+        new Thread(()->{
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            lock.lock();
+//            try{
+            synchronized (lock){
+
+                int k = 0;
+                while (k<1000){
+                    y +=1;
+                    p +=1;
+                    System.err.println(Thread.currentThread()+"----"+y+"+"+p+"="+(y+p)+"----");
+                    k++;
+                }
+            }
+//            }
+//            }finally {
+//                lock.unlock();
+//            }
+
+
+        }).start();
+        Thread.sleep(100000);
+    }
+    @Test
+    public void test5() throws InterruptedException {
+        //User user = new User();
+        for (int i = 0; i < 2; i++) {
+            new Thread(()->{
+                //threadLocal.set(user);
+//                User user1 = (User)threadLocal2.get();
+                User user2 = new User();
+                user2.setUserName("AAAAA");
+                threadLocal2.set(user2);
+//                user1.setUserName("苏杉杉");
+                System.err.println(threadLocal2.get().hashCode());
+                try {
+                    Thread.sleep(30000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
+        Thread.sleep(2000);
+        System.err.println(((User)threadLocal2.get()));
+    }
+
+    @Test
+    public void test7() throws InterruptedException {
+        //User user = new User();
+        for (int i = 0; i < 2; i++) {
+            new Thread(()->{
+                //threadLocal.set(user);
+//                User user1 = (User)threadLocal2.get();
+//                User user2 = new User();
+//                user2.setUserName("AAAAA");
+//                threadLocal.set(user2);
+//                user1.setUserName("苏杉杉");
+                System.err.println(threadLocal.get().hashCode());
+
+            }).start();
+        }
+        Thread.sleep(2000);
+        System.err.println(((User)threadLocal.get()).hashCode());
+    }
+    @Test
+    public void t6(){
+        Thread thread = new Thread(ThreadTest::k);
+        thread.start();
+        System.err.println();
+        threadLocal2.set(33.434);
+    }
+
+    public static void k(){
+        System.err.println(1);
+    }
 }

@@ -1,11 +1,13 @@
 package com.renjie.common.aspect;
 
 import com.google.gson.Gson;
+import com.renjie.common.annotation.RedisLock;
 import com.renjie.common.annotation.SysLogAn;
 import com.renjie.common.annotation.SysLogNotUser;
 import com.renjie.common.annotation.TestAspect;
 import com.renjie.common.utils.HttpContextUtils;
 import com.renjie.common.utils.IPUtils;
+import com.renjie.common.utils.TimeMehtodUtil;
 import com.renjie.modules.sys.entity.SysLog;
 import com.renjie.modules.sys.entity.SysUser;
 import com.renjie.modules.sys.service.SysLogService;
@@ -17,11 +19,13 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Date;
+import java.util.concurrent.Callable;
 
 /**
  * @Author oyg
@@ -29,11 +33,13 @@ import java.util.Date;
  */
 @Aspect
 @Component
-public class SysLogAspect {
+public class SysLogAspect implements Ordered {
     @Autowired
     private SysLogService sysLogService;
     @Autowired
     private SysUserService sysUserService;
+    @Autowired
+    private TimeMehtodUtil timeMehtodUtil;
 
     @Pointcut("@annotation(com.renjie.common.annotation.TestAspect)")
     public void testAspect(){
@@ -48,6 +54,41 @@ public class SysLogAspect {
     @Pointcut("@annotation(com.renjie.common.annotation.SysLogNotUser)")
     public void logPointCutNotUser(){
 
+    }
+
+    @Pointcut("@annotation(com.renjie.common.annotation.RedisLock)")
+    public void redisLockPointCut(){
+
+    }
+
+    @Pointcut("@annotation(com.renjie.common.annotation.RedisLockDelay)")
+    public void redisLockDelayPointCut(){
+
+    }
+
+    @Around("redisLockPointCut()")
+    public Object aroundRedisLock(ProceedingJoinPoint point) throws Throwable {
+        Callable callable = ()->{
+            try {
+                return point.proceed();
+            } catch (Throwable throwable) {
+                throwable.printStackTrace();
+            }
+            return null;
+        };
+
+        MethodSignature signature = (MethodSignature)point.getSignature();
+        Method method = signature.getMethod();
+        RedisLock redisLock = method.getAnnotation(RedisLock.class);
+        TimeMehtodUtil.exeMethod(callable, redisLock.lockName(), redisLock.expire());
+
+        return null;
+    }
+
+    @Around("redisLockDelayPointCut()")
+    public Object aroundRedisDelayLock(ProceedingJoinPoint point) throws Throwable {
+
+        return point.proceed();
     }
 
     @Around("logPointCutNotUser()")
@@ -148,6 +189,7 @@ public class SysLogAspect {
 
     @Around("testAspect()")
     public Object test(ProceedingJoinPoint point) throws Throwable {
+        System.err.println("---------切面1");
         MethodSignature signature = (MethodSignature)point.getSignature();
         Method method = signature.getMethod();
         //System.err.println("-------------进入切面"+this.getClass().getName()+"-------------------");
@@ -159,6 +201,20 @@ public class SysLogAspect {
             sysUserService.testBspect(point);
         }
 
+        if (aspect.value().equals("")){
+            try {
+                point.proceed();
+            }catch (Exception e){
+                System.err.println(e.getMessage());
+            }
+
+        }
+
         return null;
+    }
+
+    @Override
+    public int getOrder() {
+        return 1;
     }
 }

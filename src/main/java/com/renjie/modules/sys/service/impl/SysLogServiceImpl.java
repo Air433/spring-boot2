@@ -30,4 +30,13 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
     public void m3() {
         System.err.println("------------我是m3方法，无需要切面---------");
     }
+
+    @TestAspect
+    @Override
+    public void m5() throws Exception {
+        System.err.println("-----执行M5");
+        if (1==1){
+            throw new Exception("111111111111111111111");
+        }
+    }
 }

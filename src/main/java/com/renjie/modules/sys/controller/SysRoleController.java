@@ -68,6 +68,7 @@ public class SysRoleController extends AbstractController{
     public AirResult info(@PathVariable("roleId") Long roleId){
         SysRole role = sysRoleService.selectById(roleId);
 
+        SysRole role2 = sysRoleService.selectById(roleId);
         //查询角色对应的菜单
         List<Long> menuIdList = sysRoleMenuService.queryMenuIdList(roleId);
         role.setMenuIdList(menuIdList);

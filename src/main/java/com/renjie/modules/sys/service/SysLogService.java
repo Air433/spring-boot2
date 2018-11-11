@@ -14,4 +14,6 @@ public interface SysLogService extends IService<SysLog> {
     void m2();
 
     void m3();
+
+    void m5() throws Exception;
 }
